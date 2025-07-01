@@ -12,28 +12,40 @@ export class AuthService {
   private router = inject(Router);
 
   constructor() { 
-    // define the supabase client with the url and key
+    // Define the supabase client with the url and key
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey
     )
 
-    // receive a notification whenever a auth event happens
-    this.supabase.auth.onAuthStateChange( (event, session) => {
+    // You should only redirect if the user is currently on the login page. Otherwise, it causes unexpected navigation on app load.
+    this.supabase.auth.onAuthStateChange((event, session) => {
       console.log("evnt: ", event);
       console.log("session: ", session);
       
       localStorage.setItem('session', JSON.stringify(session?.user));
-      if(session?.user){
+
+      const currentUrl = this.router.url;
+
+      if (session?.user && currentUrl === '/login') {
         this.router.navigate(['/chat']);
+      } else if (!session?.user && currentUrl !== '/login') {
+        this.router.navigate(['/login']);
       }
     });
+
+
   }
 
 
   get isLoggedIn(): boolean {
-    const user = localStorage.getItem('session') as string
-    return user === 'undefined' ? false : true
+    const user = localStorage.getItem('session')
+    try {
+      // if the value is null or invalid or undefined then return 
+      return !!(user && JSON.parse(user));
+    } catch {
+      return false;
+    }
   }
 
   async signInWithGoogle() {
