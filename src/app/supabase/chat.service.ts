@@ -17,15 +17,31 @@ export class ChatService {
     )
   }
 
-  async chatMessage(text: string) {
+  async sendChatMessage(text: string) {
     try {
       const {data, error} = await this.supabase.from('chat').insert( {text} );
       if (error) {
         alert(error.message);
       }
+    
     } catch(error) {
-      alert(error);
+      throw error;
     }
   }
+
+  async listChatMessages() {
+    try {
+      const  {data, error} = await this.supabase.from('chat').select('*,users(*)')
+      if (error) {
+        alert(error.message);
+      }
+
+      return data;
+    
+    } catch(error) {
+      throw error;
+    }
+  }
+
 
 }
