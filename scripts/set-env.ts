@@ -1,13 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as dotenv from 'dotenv';
 
-const envDir = path.join(__dirname, '../src/environments');
-const envFile = path.join(envDir, 'environment.ts');
-
-// 1. Create the directory if it doesn't exist
-if (!fs.existsSync(envDir)) {
-  fs.mkdirSync(envDir, { recursive: true });
-}
+dotenv.config();
 
 const environment = `
 export const environment = {
@@ -17,5 +11,5 @@ export const environment = {
 };
 `;
 
-fs.writeFileSync(envFile, environment);
-// fs.writeFileSync('./src/environments/environment.ts', environment);
+// fs.writeFileSync(envFile, environment);
+fs.writeFileSync('./src/environments/environment.ts', environment);
