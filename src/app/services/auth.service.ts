@@ -15,8 +15,8 @@ export class AuthService {
   constructor() { 
     // Define the supabase client with the url and key
     this.supabase = createClient(
-      environment.supabaseUrl,
-      environment.supabaseKey
+      environment.SUPABASE_URL,
+      environment.SUPABASE_KEY
     )
 
     // You should only redirect if the user is currently on the login page. Otherwise, it causes unexpected navigation on app load.
