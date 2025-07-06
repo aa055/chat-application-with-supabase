@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment.development';
+import { Ichat } from '../interface/chat-response';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { environment } from '../../environments/environment.development';
 export class ChatService {
 
   private supabase!: SupabaseClient;
+  public savedChat = signal({})
 
   constructor() { 
     // Define the supabase client with the url and key
@@ -42,6 +44,18 @@ export class ChatService {
       throw error;
     }
   }
+
+  async deleteChatMessage(id: string) {
+    const data = await this.supabase.from('chat').delete().eq('id', id);
+    return data
+  }
+
+
+  selectedChatMessage(msg: Ichat) {
+    this.savedChat.set(msg);
+  }
+
+
 
 
 }
