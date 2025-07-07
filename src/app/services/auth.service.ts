@@ -61,7 +61,10 @@ export class AuthService {
 
   async signInWithGoogle() {
     await this.supabase.auth.signInWithOAuth({
-      provider: 'google'
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin  // Ensures the current domain is used
+      }
     });
   }
 
