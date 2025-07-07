@@ -12,11 +12,14 @@ export class AuthService {
   private router = inject(Router);
   private _ngZone = inject(NgZone);
 
+  // environment.SUPABASE_URL,
+  // environment.SUPABASE_KEY
+
   constructor() { 
     // Define the supabase client with the url and key
     this.supabase = createClient(
-      environment.SUPABASE_URL,
-      environment.SUPABASE_KEY
+      process.env['SUPABASE_URL'],
+      process.env['SUPABASE_KEY']
     )
 
     // You should only redirect if the user is currently on the login page. Otherwise, it causes unexpected navigation on app load.
