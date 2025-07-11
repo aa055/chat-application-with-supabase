@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment.development';
+// import { environment } from '../../environments/environment.development';
 import { Ichat } from '../interface/chat-response';
 
 @Injectable({
