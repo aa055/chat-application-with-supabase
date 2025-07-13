@@ -50,11 +50,10 @@ export class SignUpComponent implements OnInit {
   async onSubmit() {
     if (this.signupForm.valid) {
       const { email, password } = this.signupForm.value;
-      console.log('Signup data:', { email, password });
+      // console.log('Signup data:', { email, password });
       
       // Call authentication service
-      const response = await this.authService.signUp(email, password);
-      console.log('Signup response:', response);
+      await this.authService.signUpWithEmailPassword(email, password);
     }
   }
 
