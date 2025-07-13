@@ -12,9 +12,6 @@ export class AuthService {
   private router = inject(Router);
   private _ngZone = inject(NgZone);
 
-  // environment.SUPABASE_URL,
-  // environment.SUPABASE_KEY
-
   constructor() { 
     // console.log("SUPABASE_URL: ", process.env['SUPABASE_URL']);
     // console.log("SUPABASE_KEY: ", process.env['SUPABASE_KEY']);
@@ -71,6 +68,38 @@ export class AuthService {
   // will clear the entire local storage and the session storage in the browser
   async signOut(){
     await this.supabase.auth.signOut();
+  }
+
+
+
+
+  // Sign up method to create a new user with email and password 
+  async signUpWithEmailPassword(email: string, password: string) {
+    const { data, error } = await this.supabase.auth.signUp({
+      email,
+      password
+    });
+
+    if (error) {
+      throw error;
+    }
+    console.log("Sign up data: ", data);
+    // return data;
+  }
+
+  // Sign in method to log in an existing user with email and password
+  async signInWithEmailPassword(email: string, password: string) {
+    const { data, error } = await this.supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    console.log("Sign in data: ", data);
+    // return data;
   }
 
 
