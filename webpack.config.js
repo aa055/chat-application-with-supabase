@@ -1,4 +1,6 @@
+require('dotenv').config();
 const webpack = require('webpack');
+// const dotenv = require('dotenv');
 
 module.exports = {
   plugins: [

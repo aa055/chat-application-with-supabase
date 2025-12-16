@@ -4,6 +4,10 @@ import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'sign-up',
+    loadComponent: () => import('./pages/sign-up/sign-up.component').then((com) => com.SignUpComponent)
+  },
+  {
     path: 'chat',
     loadComponent: () => import('./pages/chat/chat.component').then((com) => com.ChatComponent),
     canActivate: [authGuard],  // 👈 protect this route
@@ -14,7 +18,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'login', // initial landing page on load
     pathMatch: 'full'
   }
 ];
